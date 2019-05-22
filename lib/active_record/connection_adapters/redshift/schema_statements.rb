@@ -375,17 +375,16 @@ module ActiveRecord
         # Maps logical Rails types to PostgreSQL-specific data types.
         # The call from ActiveRecord is type_to_sql(o.type, o.options)
         # EX: type=:integer, options={:limit=>5, :primary_key=>false}
-        def type_to_sql(type, options = nil, precision = nil, scale = nil)
+        def type_to_sql(type, limit: nil, precision: nil, scale: nil, array: nil, **)
           case type.to_s
           when 'integer'
-            p "OPTIONS: #{options}"
-            return 'integer' unless options[:limit]
+            return 'integer' unless limit
 
-            case options[:limit]
+            case limit
               when 1, 2; 'smallint'
               when nil, 3, 4; 'integer'
               when 5..8; 'bigint'
-              else raise(ActiveRecordError, "No integer type has byte size #{options[:limit]}. Use a numeric with precision 0 instead.")
+              else raise(ActiveRecordError, "No integer type has byte size #{limit}. Use a numeric with precision 0 instead.")
             end
           else
             super(type)
