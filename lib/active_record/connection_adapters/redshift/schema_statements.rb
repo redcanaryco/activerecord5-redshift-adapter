@@ -373,6 +373,7 @@ module ActiveRecord
         end
 
         # Maps logical Rails types to PostgreSQL-specific data types.
+        # The call from ActiveRecord is type_to_sql(o.type, o.options)
         def type_to_sql(type, limit = nil, precision = nil, scale = nil)
           case type.to_s
           when 'integer'
