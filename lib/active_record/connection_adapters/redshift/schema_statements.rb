@@ -5,6 +5,7 @@ module ActiveRecord
         private
 
         def visit_ColumnDefinition(o)
+          p "COLUMN DEFINITION OBJECT: #{o}"
           o.sql_type = type_to_sql(o.type, o.limit, o.precision, o.scale)
           super
         end
