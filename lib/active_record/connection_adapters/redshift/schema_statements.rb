@@ -378,6 +378,7 @@ module ActiveRecord
         def type_to_sql(type, options = nil, precision = nil, scale = nil)
           case type.to_s
           when 'integer'
+            p "OPTIONS: #{options} LIMIT: #{options[:limit]}"
             return 'integer' unless options[:limit]
 
             case options[:limit]
